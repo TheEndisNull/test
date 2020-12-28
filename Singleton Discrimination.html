@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="jspsych/jspsych.js"></script>
+    <script src='JSPsych/plugins/jspsych-html-keyboard-response.js'></script>
+    <script src='JSPsych/plugins/jspsych-fullscreen.js'></script>
+    <link rel="stylesheet" href="jspsych/css/jspsych.css">
+</head>
+
+<body></body>
+<script>
+    //var svg
+    var reward_total = Math.round(0)
+    var counterbalanceCondition =  .2//Math.random()    
+    var greenHighReward = [
+        //Red Horizontal
+        { stimulus: SVGStimulus(0, 'red', 'h'), data: { color: 'red', rewardType: 'low', orientation: 'horizontal' } },
+        { stimulus: SVGStimulus(0, 'red', 'h'), data: { color: 'red', rewardType: 'low', orientation: 'horizontal' } },
+        { stimulus: SVGStimulus(0, 'red', 'h'), data: { color: 'red', rewardType: 'low', orientation: 'horizontal' } },
+        { stimulus: SVGStimulus(0, 'red', 'h'), data: { color: 'red', rewardType: 'low', orientation: 'horizontal' } },
+        { stimulus: SVGStimulus(0, 'red', 'h'), data: { color: 'red', rewardType: 'low', orientation: 'horizontal' } },
+        { stimulus: SVGStimulus(0, 'red', 'h'), data: { color: 'red', rewardType: 'low', orientation: 'horizontal' } },
+        //Red Vertical
+        /*{ stimulus: SVGStimulus(0, 'red', 'v'), data: { color: 'red', rewardType: 'low', orientation: 'vertical' } },
+        { stimulus: SVGStimulus(1, 'red', 'v'), data: { color: 'red', rewardType: 'low', orientation: 'vertical' } },
+        { stimulus: SVGStimulus(2, 'red', 'v'), data: { color: 'red', rewardType: 'low', orientation: 'vertical' } },
+        { stimulus: SVGStimulus(3, 'red', 'v'), data: { color: 'red', rewardType: 'low', orientation: 'vertical' } },
+        { stimulus: SVGStimulus(4, 'red', 'v'), data: { color: 'red', rewardType: 'low', orientation: 'vertical' } },
+        { stimulus: SVGStimulus(5, 'red', 'v'), data: { color: 'red', rewardType: 'low', orientation: 'vertical' } },
+        //Green Vertical
+        { stimulus: SVGStimulus(0, 'green', 'h'), data: { color: 'green', rewardType: 'high', orientation: 'horizontal' } },
+        { stimulus: SVGStimulus(1, 'green', 'h'), data: { color: 'green', rewardType: 'high', orientation: 'horizontal' } },
+        { stimulus: SVGStimulus(2, 'green', 'h'), data: { color: 'green', rewardType: 'high', orientation: 'horizontal' } },
+        { stimulus: SVGStimulus(3, 'green', 'h'), data: { color: 'green', rewardType: 'high', orientation: 'horizontal' } },
+        { stimulus: SVGStimulus(4, 'green', 'h'), data: { color: 'green', rewardType: 'high', orientation: 'horizontal' } },
+        { stimulus: SVGStimulus(5, 'green', 'h'), data: { color: 'green', rewardType: 'high', orientation: 'horizontal' } },
+        //Green Horizontal
+        { stimulus: SVGStimulus(0, 'green', 'v'), data: { color: 'green', rewardType: 'high', orientation: 'vertical' } },
+        { stimulus: SVGStimulus(1, 'green', 'v'), data: { color: 'green', rewardType: 'high', orientation: 'vertical' } },
+        { stimulus: SVGStimulus(2, 'green', 'v'), data: { color: 'green', rewardType: 'high', orientation: 'vertical' } },
+        { stimulus: SVGStimulus(3, 'green', 'v'), data: { color: 'green', rewardType: 'high', orientation: 'vertical' } },
+        { stimulus: SVGStimulus(4, 'green', 'v'), data: { color: 'green', rewardType: 'high', orientation: 'vertical' } },
+        { stimulus: SVGStimulus(5, 'green', 'v'), data: { color: 'green', rewardType: 'high', orientation: 'vertical' } },*/
+    ]
+    var redHighReward = [
+        //Red Horizontal
+        { stimulus: SVGStimulus(0, 'red', 'h'), data: { color: 'red', rewardType: 'high', orientation: 'horizontal' } },
+        /*{{ stimulus: SVGStimulus(0, 'red', 'h'), data: { color: 'red', rewardType: 'high', orientation: 'horizontal' } },
+         stimulus: SVGStimulus(2, 'red', 'h'), data: { color: 'red', rewardType: 'high', orientation: 'horizontal' } },
+        { stimulus: SVGStimulus(3, 'red', 'h'), data: { color: 'red', rewardType: 'high', orientation: 'horizontal' } },
+        { stimulus: SVGStimulus(4, 'red', 'h'), data: { color: 'red', rewardType: 'high', orientation: 'horizontal' } },
+        { stimulus: SVGStimulus(5, 'red', 'h'), data: { color: 'red', rewardType: 'high', orientation: 'horizontal' } },
+        //Red Vertical
+        { stimulus: SVGStimulus(0, 'red', 'v'), data: { color: 'red', rewardType: 'high', orientation: 'vertical' } },
+        { stimulus: SVGStimulus(1, 'red', 'v'), data: { color: 'red', rewardType: 'high', orientation: 'vertical' } },
+        { stimulus: SVGStimulus(2, 'red', 'v'), data: { color: 'red', rewardType: 'high', orientation: 'vertical' } },
+        { stimulus: SVGStimulus(3, 'red', 'v'), data: { color: 'red', rewardType: 'high', orientation: 'vertical' } },
+        { stimulus: SVGStimulus(4, 'red', 'v'), data: { color: 'red', rewardType: 'high', orientation: 'vertical' } },
+        { stimulus: SVGStimulus(5, 'red', 'v'), data: { color: 'red', rewardType: 'high', orientation: 'vertical' } },
+        //Green Vertical
+        { stimulus: SVGStimulus(0, 'green', 'h'), data: { color: 'green', rewardType: 'low', orientation: 'horizontal' } },
+        { stimulus: SVGStimulus(1, 'green', 'h'), data: { color: 'green', rewardType: 'low', orientation: 'horizontal' } },
+        { stimulus: SVGStimulus(2, 'green', 'h'), data: { color: 'green', rewardType: 'low', orientation: 'horizontal' } },
+        { stimulus: SVGStimulus(3, 'green', 'h'), data: { color: 'green', rewardType: 'low', orientation: 'horizontal' } },
+        { stimulus: SVGStimulus(4, 'green', 'h'), data: { color: 'green', rewardType: 'low', orientation: 'horizontal' } },
+        { stimulus: SVGStimulus(5, 'green', 'h'), data: { color: 'green', rewardType: 'low', orientation: 'horizontal' } },
+        //Green Horizontal
+        { stimulus: SVGStimulus(0, 'green', 'v'), data: { color: 'green', rewardType: 'low', orientation: 'vertical' } },
+        { stimulus: SVGStimulus(1, 'green', 'v'), data: { color: 'green', rewardType: 'low', orientation: 'vertical' } },
+        { stimulus: SVGStimulus(2, 'green', 'v'), data: { color: 'green', rewardType: 'low', orientation: 'vertical' } },
+        { stimulus: SVGStimulus(3, 'green', 'v'), data: { color: 'green', rewardType: 'low', orientation: 'vertical' } },
+        { stimulus: SVGStimulus(4, 'green', 'v'), data: { color: 'green', rewardType: 'low', orientation: 'vertical' } },
+        { stimulus: SVGStimulus(5, 'green', 'v'), data: { color: 'green', rewardType: 'low', orientation: 'vertical' } },*/
+    ]
+    function SVGStimulus(tgtPosition, tgtColor, tgtOrientation) {
+        var svg = '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">'
+        var colors = jsPsych.randomization.repeat(['cyan', 'blueviolet', 'black', 'orangered', 'gold'], 1)
+        colors.splice(tgtPosition, 0, tgtColor)
+        svg += '<circle cx="50" cy="50" r="10" fill="none" transform="translate( 26  15)" stroke="' + colors[0] + '" />'
+        svg += '<circle cx="50" cy="50" r="10" fill="none" transform="translate(  0  30)" stroke="' + colors[1] + '" />'
+        svg += '<circle cx="50" cy="50" r="10" fill="none" transform="translate(-26  15)" stroke="' + colors[2] + '" />'
+        svg += '<circle cx="50" cy="50" r="10" fill="none" transform="translate(-26 -15)" stroke="' + colors[3] + '" />'
+        svg += '<circle cx="50" cy="50" r="10" fill="none" transform="translate(  0 -30)" stroke="' + colors[4] + '" />'
+        svg += '<circle cx="50" cy="50" r="10" fill="none" transform="translate( 26 -15)" stroke="' + colors[5] + '" />'
+        var angle = []
+        for (i = 0; i < 5; i++) {
+            if (Math.random() < 0.5) {
+                angle[i] = '45'
+            } else {
+                angle[i] = '-45'
+            }
+        }
+        if (tgtOrientation == 'h') {
+            angle.splice(tgtPosition, 0, '90')
+        } else if (tgtOrientation == 'v') {
+            angle.splice(tgtPosition, 0, '0')
+        }
+        svg += '<path d="M 50 57 L 50 43" stroke="black" transform="translate( 26  15) rotate(' + angle[0] + ' 50 50)"/>'
+        svg += '<path d="M 50 57 L 50 43" stroke="black" transform="translate(  0  30) rotate(' + angle[1] + ' 50 50)"/>'
+        svg += '<path d="M 50 57 L 50 43" stroke="black" transform="translate(-26  15) rotate(' + angle[2] + ' 50 50)"/>'
+        svg += '<path d="M 50 57 L 50 43" stroke="black" transform="translate(-26 -15) rotate(' + angle[3] + ' 50 50)"/>'
+        svg += '<path d="M 50 57 L 50 43" stroke="black" transform="translate(  0 -30) rotate(' + angle[4] + ' 50 50)"/>'
+        svg += '<path d="M 50 57 L 50 43" stroke="black" transform="translate( 26 -15) rotate(' + angle[5] + ' 50 50)"/>'
+        return svg
+    }
+    var enterFullscreen = {
+        type: 'fullscreen',
+        fullscreen_mode: true
+    }
+    var instructions = {
+        type: "html-keyboard-response",
+        stimulus: "<p>In this task, you will see six circles with a line inside of them.</p>" +
+            "<p>One line will be positioned horizontally or vertically. All other lines will be positioned diagonally.</p>" +
+            "<p>Press the 'h' key if that line is positioned horizontally, or press the 'v' key if the line is positioned vertically.</p>" +
+            "<p>Press any key to begin.</p>",
+        post_trial_gap: 1000
+    };
+    var redReward = {
+        type: "html-keyboard-response",
+        stimulus: "<p>red is High Reward</p>",
+        post_trial_gap: 1000
+    };
+    var greenReward = {
+        type: "html-keyboard-response",
+        stimulus: "<p>green is High Reward</p>",
+        post_trial_gap: 1000
+    };
+    var fixation = {
+        type: 'html-keyboard-response',
+        stimulus: '<span style="font-size:40px;">+</span>',
+        choices: jsPsych.NO_KEYS,
+        trial_duration: Math.floor(Math.random() * 600) + 400,
+    }
+    var test = {
+        type: 'html-keyboard-response',
+        choices: [86, 72],
+        prompt: '<p>(V)ertical of (H)orizontal</p>',
+        trial_duration: 1000,
+        stimulus: jsPsych.timelineVariable('stimulus'),
+        data: jsPsych.timelineVariable('data'),
+        on_finish: function (data) {
+            var correct = false;
+            if (data.orientation == 'horizontal' && data.key_press == 72) {
+                correct = true;
+            } else if (data.orientation == 'vertical' && data.key_press == 86) {
+                correct = true;
+            }
+            data.correct = correct;
+        },
+        post_trial_gap: 1000,
+    }
+    var feedback = {
+        type: 'html-keyboard-response',
+        stimulus: function () {
+            var reward_this_trial = 0.05
+            if (jsPsych.data.getLastTrialData().values()[0].correct == true && jsPsych.data.getLastTrialData().values()[0].rewardType == 'low') {
+                if (Math.random() < .2) {
+                    reward_this_trial = 0.1
+                }
+                reward_total = reward_total + reward_this_trial
+                return '<span style="font-size:30px;color:black;"> + ' + reward_this_trial + '</span> <p></p> <span style="font-size:30px;color:black;"> Total $' + reward_total.toFixed(2)
+            } else if (jsPsych.data.getLastTrialData().values()[0].correct == true && jsPsych.data.getLastTrialData().values()[0].rewardType == 'high') {
+                if (Math.random() < .8) {
+                    reward_this_trial = 0.1
+                }
+                reward_total = reward_total + reward_this_trial
+                return '<span style="font-size:30px;color:black;"> + ' + reward_this_trial + '</span> <p></p> <span style="font-size:30px;color:black;"> Total $' + reward_total.toFixed(2)
+            } else {
+                return '<span style="font-size:30px;">****</span>'
+            }
+        },
+        choices: jsPsych.NO_KEYS,
+        trial_duration: 1500,
+        post_trial_gap: 1000,
+    }
+    var experiment_loop = {
+        timeline: [fixation, test, feedback],
+        conditional_function: function () {
+            if (counterbalanceCondition < .5) {
+                return true
+            } else {
+                return false
+            }
+        },
+        timeline_variables: greenHighReward,
+        repetitions: 1,
+        randomize_order: true
+    }
+    var experiment_loop1 = {
+        timeline: [fixation, test, feedback],
+        conditional_function: function () {
+            if (counterbalanceCondition < .5) {
+                return false
+            } else {
+                return true
+            }
+        },
+        timeline_variables: redHighReward,
+        repetitions: 1,
+        randomize_order: true
+    }
+
+    jsPsych.init({
+        timeline: [enterFullscreen, instructions, experiment_loop, experiment_loop1],
+        experiment_width: 1080,
+        on_finish: function () {
+            jsPsych.data.displayData()
+
+        }
+    })
+</script>
+
+</html>

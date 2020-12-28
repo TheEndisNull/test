@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="jspsych/jspsych.js"></script>
+    <script src="jspsych/plugins/jspsych-categorize-animation.js"></script>
+    <script src="jspsych/plugins/jspsych-categorize-html.js"></script>
+    <script src="jspsych/plugins/jspsych-html-keyboard-response.js"></script>
+</head>
+
+<body></body>
+<script>
+
+
+    var alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+    var svg = []
+
+    function generateStimuli(tgtPosition,) {
+
+        var letters = jsPsych.randomization.sampleWithoutReplacement(alphabet, 3)
+
+        for (i = 0; i <= 3; i++) {
+            if (i == tgtPosition) {
+                svg[i] = '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">'
+                svg[i] += '<text x="50" y="35" fill="red">' + letters[i] + '</text>'
+            } else {
+                svg[i] = '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">'
+                svg[i] += '<text x="50" y="35">' + letters[i] + '</text>'
+            }
+        }
+   
+    }
+
+    var timelineStimuli = [
+        { stimulus: generateStimuli( ), trial1: svg[0], trial2: svg[1], trial3: svg[2], trial4: svg[2], data: { position: '1' } },
+        { stimulus: generateStimuli(1), trial1: svg[0], trial2: svg[1], trial3: svg[2], trial4: svg[2], data: { position: '1' } },
+        { stimulus: generateStimuli(2), trial1: svg[0], trial2: svg[1], trial3: svg[2], trial4: svg[2], data: { position: '1' } },
+ 
+    ]
+
+    var fixation = {
+        type: 'html-keyboard-response',
+        stimulus: '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"> <text x="50" y="50" fill="black">+</text>',
+        choices: jsPsych.NO_KEYS,
+        trial_duration: 500,
+        on_finish: jsPsych.timelineVariable('stimulus'),
+    }
+    var RSVP1 = {
+        type: 'html-keyboard-response',
+        stimulus: jsPsych.timelineVariable('trial1'),
+        choices: jsPsych.NO_KEYS,
+        trial_duration: 500,
+    }
+    var RSVP2 = {
+        type: 'html-keyboard-response',
+        stimulus:  jsPsych.timelineVariable('trial2'),
+        choices: jsPsych.NO_KEYS,
+        trial_duration: 500,
+    }
+    var RSVP3 = {
+        type: 'html-keyboard-response',
+        stimulus:  jsPsych.timelineVariable('trial3'),
+        choices: jsPsych.NO_KEYS,
+        trial_duration: 500,
+    }
+    var RSVP4 = {
+        type: 'html-keyboard-response',
+        stimulus:  '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"> <text x="50" y="50" fill="black">+</text>',
+        choices: jsPsych.NO_KEYS,
+        trial_duration: 500
+    }
+    var RSVP5 = {
+        type: 'html-keyboard-response',
+        stimulus:  jsPsych.timelineVariable('trial4'),
+        choices: ['y', 'n'],
+        trial_duration: 5000
+    }
+
+   var experiment_loop = {
+        timeline: [fixation,RSVP1,RSVP2,RSVP3,RSVP4,RSVP5],
+        timeline_variables:timelineStimuli,
+        repetitions: 1,
+    }
+
+    jsPsych.init({
+        timeline: [experiment_loop,],
+        experiment_width: 1080,
+        on_finish: function () {
+            jsPsych.data.displayData();
+        }
+    });
+
+</script>
+
+</html>
